@@ -47,6 +47,16 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
             return source;
           });
         }
+        if (coverageIstanbulReporter.truncateSrc) {
+            const truncateAt = coverageIstanbulReporter.truncateSrc;
+            fileCoverage.inputSourceMap.sources = fileCoverage.inputSourceMap.sources.map(source => {
+
+              if (source.indexOf(truncateAt) !== -1) {
+                source = source.substr(source.indexOf(truncateAt))
+              }
+              return source;
+            });
+        }
         coverageMap.addFileCoverage(fileCoverage);
       });
 
